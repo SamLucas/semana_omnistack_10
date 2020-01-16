@@ -1,6 +1,8 @@
 const api = require("axios");
 const Dev = require("../models/Dev");
 
+const { parseStringAsArray } = require("../utils/Functions");
+
 const index = async (request, response) => {
   const devs = await Dev.find();
   return response.json(devs);
@@ -17,7 +19,7 @@ const store = async (request, response) => {
     const { name = login, bio, avatar_url } = git.data;
 
     // Tratando techs
-    const techsArray = techs.split(",").map(tech => tech.trim());
+    const techsArray = parseStringAsArray(techs);
 
     // Tratando a localização
     const location = {
